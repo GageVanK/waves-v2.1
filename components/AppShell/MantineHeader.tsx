@@ -1,24 +1,21 @@
+'use client';
+
+import { identity } from 'deso-protocol';
 import {
   createStyles,
   Header,
-  HoverCard,
   Group,
   Button,
   UnstyledButton,
   Text,
-  SimpleGrid,
   ThemeIcon,
-  Anchor,
   Divider,
-  Center,
   Box,
   Burger,
   Drawer,
-  Collapse,
   ScrollArea,
   rem,
 } from '@mantine/core';
-import { identity } from 'deso-protocol';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconNotification,
@@ -27,7 +24,6 @@ import {
   IconChartPie3,
   IconFingerprint,
   IconCoin,
-  IconChevronDown,
 } from '@tabler/icons-react';
 import { ColorSchemeToggle } from './../ColorSchemeToggle/ColorSchemeToggle';
 import { GiWaveCrest } from 'react-icons/gi';
