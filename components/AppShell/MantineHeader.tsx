@@ -193,7 +193,7 @@ export function MantineHeader() {
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button onClick={async () => identity.login()} variant="default">
+            <Button onClick={() => identity.login()} variant="default">
               Log in
             </Button>
             <Button
