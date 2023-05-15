@@ -160,11 +160,8 @@ export function MantineHeader() {
 
           <Group className={classes.hiddenMobile}>
             <ColorSchemeToggle />
-            <Button onClick={() => identity.login()} variant="default">
-              Log in
-            </Button>
+            <Button variant="default">Log in</Button>
             <Button
-              onClick={() => identity.login()}
               leftIcon={<GiWaveCrest size="1rem" />}
               variant="gradient"
               gradient={{ from: 'cyan', to: 'indigo' }}
@@ -196,11 +193,10 @@ export function MantineHeader() {
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button onClick={() => identity.login()} variant="default">
+            <Button onClick={async () => identity.login()} variant="default">
               Log in
             </Button>
             <Button
-              onClick={() => identity.login()}
               leftIcon={<GiWaveCrest size="1rem" />}
               variant="gradient"
               gradient={{ from: 'cyan', to: 'indigo' }}
