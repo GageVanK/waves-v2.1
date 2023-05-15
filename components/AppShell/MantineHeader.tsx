@@ -1,24 +1,21 @@
+'use client';
+
+import { identity } from 'deso-protocol';
 import {
   createStyles,
   Header,
-  HoverCard,
   Group,
   Button,
   UnstyledButton,
   Text,
-  SimpleGrid,
   ThemeIcon,
-  Anchor,
   Divider,
-  Center,
   Box,
   Burger,
   Drawer,
-  Collapse,
   ScrollArea,
   rem,
 } from '@mantine/core';
-
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconNotification,
@@ -27,7 +24,6 @@ import {
   IconChartPie3,
   IconFingerprint,
   IconCoin,
-  IconChevronDown,
 } from '@tabler/icons-react';
 import { ColorSchemeToggle } from './../ColorSchemeToggle/ColorSchemeToggle';
 import { GiWaveCrest } from 'react-icons/gi';
@@ -193,7 +189,9 @@ export function MantineHeader() {
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
+            <Button onClick={() => identity.login()} variant="default">
+              Log in
+            </Button>
             <Button
               leftIcon={<GiWaveCrest size="1rem" />}
               variant="gradient"
