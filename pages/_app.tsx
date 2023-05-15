@@ -94,16 +94,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
 
-      <UserContext.Provider value={userState}>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-            <MantineAppShell>
-              <Component {...pageProps} />
-              <Notifications />
-            </MantineAppShell>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </UserContext.Provider>
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+          <MantineAppShell>
+            <Component {...pageProps} />
+            <Notifications />
+          </MantineAppShell>
+        </MantineProvider>
+      </ColorSchemeProvider>
     </>
   );
 }
