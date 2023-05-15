@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NextApp, { AppProps, AppContext } from 'next/app';
+import { configure, getUsersStateless, identity, NOTIFICATION_EVENTS } from 'deso-protocol';
+import { UserContext } from '../contexts';
 import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';

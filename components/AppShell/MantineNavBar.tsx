@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
+import { createStyles, Navbar, getStylesRef, rem } from '@mantine/core';
 import {
   IconBellRinging,
   IconUser,
-  IconKey,
   IconSettings,
   IconHome2,
   IconDeviceDesktopAnalytics,
   IconReceipt2,
 } from '@tabler/icons-react';
+
 
 const useStyles = createStyles((theme) => ({
   header: {
