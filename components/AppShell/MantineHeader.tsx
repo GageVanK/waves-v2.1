@@ -18,7 +18,7 @@ import {
   ScrollArea,
   rem,
 } from '@mantine/core';
-
+import { identity } from 'deso-protocol';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconNotification,
@@ -127,26 +127,8 @@ const mockdata = [
 
 export function MantineHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const { classes, theme } = useStyles();
 
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" color="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ));
+  const { classes, theme } = useStyles();
 
   return (
     <Box pb={5}>
@@ -160,11 +142,14 @@ export function MantineHeader() {
 
           <Group className={classes.hiddenMobile}>
             <ColorSchemeToggle />
-            <Button variant="default">Log in</Button>
+            <Button onClick={() => identity.login()} variant="default">
+              Log in
+            </Button>
             <Button
               leftIcon={<GiWaveCrest size="1rem" />}
               variant="gradient"
               gradient={{ from: 'cyan', to: 'indigo' }}
+              onClick={() => identity.login()}
             >
               Sign up
             </Button>
@@ -193,11 +178,14 @@ export function MantineHeader() {
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
+            <Button onClick={() => identity.login()} variant="default">
+              Log in
+            </Button>
             <Button
               leftIcon={<GiWaveCrest size="1rem" />}
               variant="gradient"
               gradient={{ from: 'cyan', to: 'indigo' }}
+              onClick={() => identity.login()}
             >
               Sign up
             </Button>
