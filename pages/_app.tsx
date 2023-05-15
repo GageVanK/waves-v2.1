@@ -8,15 +8,6 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { Notifications } from '@mantine/notifications';
 import { MantineAppShell } from '../components/AppShell/AppShell';
 
-configure({
-  spendingLimitOptions: {
-    GlobalDESOLimit: 10000000, // 0.01 DESO
-    TransactionCountLimitMap: {
-      SUBMIT_POST: 'UNLIMITED',
-    },
-  },
-});
-
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
@@ -27,65 +18,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
   };
 
-  const [userState, setUserState] = useState({
-    currentUser: null,
-    alternateUsers: null,
-    isLoading: true,
-  });
-
-  useEffect(
-    () => {
-      identity.subscribe(({ event, currentUser, alternateUsers }) => {
-        if (event === NOTIFICATION_EVENTS.AUTHORIZE_DERIVED_KEY_START) {
-          setUserState((state) => ({ ...state, isLoading: true }));
-          return;
-        }
-
-        if (alternateUsers && !currentUser) {
-          const fallbackUser = Object.values(alternateUsers)[0];
-          identity.setActiveUser(fallbackUser.publicKey);
-
-          return;
-        }
-
-        if (!currentUser) {
-          setUserState((state) => ({
-            ...state,
-            currentUser: null,
-            isLoading: false,
-          }));
-        } else if (currentUser !== userState.currentUser) {
-          const alternateUserKeys =
-            Object.values(alternateUsers ?? {})?.map((u) => u.publicKey) ?? [];
-
-          setUserState((state) => ({
-            ...state,
-            isLoading: true,
-          }));
-
-          getUsersStateless({
-            PublicKeysBase58Check: [currentUser.publicKey, ...alternateUserKeys],
-            IncludeBalance: true,
-          })
-            .then(({ UserList }: any) => {
-              const [currentUser, ...alternateUsers] = UserList;
-              setUserState((state) => ({
-                ...state,
-                currentUser,
-                alternateUsers,
-              }));
-            })
-            .finally(() =>
-              setUserState((state) => ({
-                ...state,
-                isLoading: false,
-              }))
-            );
-        }
-      });
-    },
-    [] /* NOTE: We pass an empty array to useEffect so that it only runs once for our entire app session */
-  );
   return (
     <>
       <Head>
