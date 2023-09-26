@@ -24,7 +24,7 @@ import { RiDatabaseLine } from "react-icons/ri";
 import { GiReceiveMoney } from "react-icons/gi";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { PiUsersThreeDuotone } from "react-icons/pi";
-import { ReactElement, CSSProperties  } from 'react';
+
 
 
 import { GiBigWave } from 'react-icons/gi';
@@ -114,19 +114,18 @@ export const MOCKDATA = [
 ];
 
 interface FeatureProps {
-  icon: ReactElement;
-  title: string;
-  description: string;
-  iconStyles?: CSSProperties; // Define a prop for custom icon styles
+  icon: React.FC<any>;
+  title: React.ReactNode;
+  description: React.ReactNode;
 }
 
-export function Feature({ icon, title, description }: { icon: ReactElement, title: string, description: string }) {
+export function Feature({ icon: Icon, title, description }: FeatureProps) {
   return (
     <>
     <div >
       <Center>
    <ThemeIcon variant="light" size={50} radius={40}>
-  {cloneElement(icon, { style: { ...iconStyles, width: rem(25), height: rem(25) } })}
+  <Icon style={{ width: rem(25), height: rem(25) }} stroke={1.5} />
 </ThemeIcon>
 
       </Center>
