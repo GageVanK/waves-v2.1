@@ -1,11 +1,37 @@
-import { createStyles, Card, Center, Title, Text, List, ThemeIcon, Button } from '@mantine/core';
+import {
+  createStyles,
+  Card,
+  Center,
+  Title,
+  Text,
+  List,
+  ThemeIcon,
+  Group,
+  Button,
+  Divider,
+  Container,
+  SimpleGrid, rem,
+  Space
+} from "@mantine/core";
+import { IconCheck } from "@tabler/icons-react";
+import { ERROR_TYPES, identity } from "deso-protocol";
+import { GiWaveCrest } from "react-icons/gi";
+import { VscLink } from "react-icons/vsc";
+import { BiWorld } from "react-icons/bi";
+import { MdOutlineAttachMoney } from "react-icons/md";
+import {Slide} from "react-awesome-reveal";
+import { RiDatabaseLine } from "react-icons/ri";
+import { GiReceiveMoney } from "react-icons/gi";
+import { RiCheckboxMultipleLine } from "react-icons/ri";
+import { PiUsersThreeDuotone } from "react-icons/pi";
 
-import { IconCheck } from '@tabler/icons-react';
-import { GiWaveCrest } from 'react-icons/gi';
+
+
+import { GiBigWave } from 'react-icons/gi';
 const useStyles = createStyles((theme) => ({
   inner: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
     paddingTop: `calc(${theme.spacing.xl} * 2)`,
     paddingBottom: `calc(${theme.spacing.xl} * 2)`,
   },
@@ -13,98 +39,163 @@ const useStyles = createStyles((theme) => ({
   content: {
     maxWidth: 480,
 
-    [theme.fn.smallerThan('md')]: {
-      maxWidth: '100%',
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: "100%",
       marginRight: 0,
     },
   },
+
+  wrapper: {
+    paddingTop: `calc(var(${theme.spacing.xl} * 4)`,
+    paddingBottom: `calc(var(${theme.spacing.xl} * 4)`,
+  },
+
+  title: {
+    fontWeight: 900,
+  },
+
+  root: {
+    margin: '0 auto',
+    maxWidth: '1000px',
+  },
+
 }));
+
+
+export const MOCKDATA = [
+  {
+    icon: GiBigWave,
+    title: 'Why Waves?',
+    description:
+      'Waves is not a shitcoin. Waves leverages the true power of Crypto and Blockchain technology via the DeSo Blockchain to provide real utility to Streamers!',
+  },
+  {
+    icon: RiDatabaseLine,
+    title: 'On-Chain Storage',
+    description:
+      'Waves is built on the DeSo Blockchain, offering an alternative to private, centralized databases. It enables transparent data allowing users as much access as the builders. Traditional social platforms often use private data to sell to advertisers, but Waves provides a storage alternative to mitigate this practice.',
+  },
+  {
+    icon: BiWorld,
+    title: 'Open Source',
+    description:
+      'Waves is open source and allows for Algorithm Audits, eliminating guesswork around the magic algorithm.',
+  },
+  {
+    icon: MdOutlineAttachMoney,
+    title: 'Monetization',
+    description:
+      'Waves is powered by Deso Wallets, enabling instant Fan-to-Creator Subscription payments. No more jumping through hoops to monetize your content. Currently, Waves pays out 100% directly to creators. Future Waves versions may take up to 20% for platform expenses.',
+  },
+  {
+    icon: RiCheckboxMultipleLine,
+    title: 'Multi-Platform Streaming',
+    description:
+      'Waves aims to empower streamers by providing tools to stream to multiple platforms right from your Waves Dashboard, maxmizing your audience. Currently, waves supports multistreaming to YouTube, Kick, and Twitch. Additional platforms can be added upon request.',
+  },
+  {
+    icon: PiUsersThreeDuotone,
+    title: 'Community Oriented',
+    description:
+      'Waves prioritizes user experience and plans to democratize social media through on-chain voting to determine feature development and the platforms direction.',
+  },
+  {
+    icon: VscLink,
+    title: 'Blockchain Social',
+    description:
+      'Waves leverages blockchain technology to facilitate interoperability between platforms, ensuring that your content remains accessible across all Deso Apps and is Censorship Resistant.',
+  },
+  {
+    icon: GiReceiveMoney,
+    title: 'NFT Streams & Clips',
+    description:
+      'Future versions of Waves will support NFT Streams and Clips, giving streamers greater longevity and complete control over pricing and royalty percentages of any future sales of the NFT.',
+  },
+];
+
+export function Feature({ icon: Icon, title, description }) {
+  return (
+    <>
+    <div >
+      <Center>
+      <ThemeIcon variant="light" size={50} radius={40}>
+        <Icon style={{ width: rem(25), height: rem(25) }} stroke={1.5} />
+      </ThemeIcon>
+      </Center>
+      <Center>
+      <Text fw={500} mt="sm" mb={7}>
+        {title}
+      </Text>
+      </Center>
+      <Center>
+      <Text size="sm" c="dimmed" lh={1.6}>
+        {description}
+      </Text>
+      </Center>
+    </div>
+    <Space h={44}/>
+    </>
+  );
+} 
 
 export function Welcome() {
   const { classes } = useStyles();
+  const features = MOCKDATA.map((feature, index) => <Feature {...feature} key={index} />);
 
   return (
-    <Center>
-      <Card shadow="xl" p="xl" radius="xl" withBorder>
-        <Center>
-          <div className={classes.inner}>
-            <div className={classes.content}>
-              <Title
-                variant="gradient"
-                gradient={{ from: 'indigo', to: 'cyan' }}
-                order={3}
-                weight={777}
-                align="center"
-              >
-                Decentralized Social Literacy
-              </Title>
-              <Text color="dimmed" mt="md">
-                By embracing decentralized social media, you can take control of your online
-                presence and enjoy a more equitable, secure, and transparent experience. With
-                decentralized social media, you'll have access to the following benefits:
-              </Text>
+   <>
+      
+      <Title className={classes.title} align="center"  fs="italic" variant="gradient"
+      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>Waves</Title>
+<Space h="sm"/>
+<Container size={560} p={0}>
+  <Text size="md" fw={700} c="dimmed" align="center">
+    Decentralized Live Streaming
+  </Text>
+</Container>
+<Divider my="sm" />
 
-              <List
-                mt={30}
-                spacing="sm"
-                size="sm"
-                icon={
-                  <ThemeIcon size={20} radius="xl">
-                    <IconCheck size={12} stroke={1.5} />
-                  </ThemeIcon>
+<SimpleGrid
+  mt={60}
+  cols={{ base: 1, sm: 2, md: 3 }}
+  spacing={{ base: 'xl', md: 50 }}
+  verticalSpacing={{ base: 'xl', md: 50 }}
+  className={classes.root}
+>
+  <Slide>
+  {features}
+  </Slide>
+</SimpleGrid>
+        
+<Space h="xs"/>
+
+          
+      
+      <Group spacing="xs" grow   className={classes.root}>
+        
+
+        <Button
+          leftIcon={<GiWaveCrest size="1rem" />}
+          variant="gradient"
+          radius="lg"
+          gradient={{ from: "cyan", to: "indigo" }}
+          onClick={() => {
+            identity
+              .login({
+                getFreeDeso: true,
+              })
+              .catch((err) => {
+                if (err?.type === ERROR_TYPES.NO_MONEY) {
+                  alert("You need DESO in order to post!");
+                } else {
+                  alert(err);
                 }
-              >
-                <List.Item>
-                  <b>Open Source</b> – Decentralized social media encourages open-source
-                  applications and algorithms, allowing for greater transparency and fairness in the
-                  digital world.
-                </List.Item>
-                <List.Item>
-                  <b>Open Data</b> – Say goodbye to companies privately owning and selling your
-                  data. With the DeSo Blockchain, your data is freely available to you.
-                </List.Item>
-                <List.Item>
-                  <b>Monetization</b> – Get paid for your contributions on social media with
-                  Social-Tips, NFTs, Creator-Coins, and cash-out to USD with ease.
-                </List.Item>
-                <List.Item>
-                  <b>Content Ownership</b> – Content is stored on-chain, meaning its not platform
-                  exclusive, this ensures ownership of what you create.
-                </List.Item>
-                <List.Item>
-                  <b>Interconnected</b> – No more having to rebuild your following as new social
-                  medias arise. Your followers and content will be accessible across every app on
-                  the DeSo Blockchain.
-                </List.Item>
-                <List.Item>
-                  <b>No Investment Needed</b> – Decentralized social media offers an accessible and
-                  affordable way to benefit from this revolutionary technology, without ever having
-                  to invest any money.
-                </List.Item>
-
-                <List.Item>
-                  <b>Direct to Creator</b> – Say goodbye to intermediaries taking huge chunks of
-                  revenue from content creators. Decentralized social media ensures that all
-                  payments go directly to the creators you support.
-                </List.Item>
-              </List>
-              <Center>
-                <Button
-                  fullWidth
-                  radius="xl"
-                  leftIcon={<GiWaveCrest size="1rem" />}
-                  mt={20}
-                  size="md"
-                  variant="gradient"
-                  gradient={{ from: 'indigo', to: 'cyan' }}
-                >
-                  Sign up
-                </Button>
-              </Center>
-            </div>
-          </div>
-        </Center>
-      </Card>
-    </Center>
+              });
+          }}
+        >
+          Sign Up
+        </Button>
+      </Group>
+      </>
   );
 }

@@ -17,22 +17,42 @@ import {
   Collapse,
   ScrollArea,
   rem,
+  Tooltip,
+  Space,
+  getStylesRef,
+  ActionIcon,
+  Title,
+  Badge,
 } from '@mantine/core';
-
+import Link from 'next/link';
 import { useDisclosure } from '@mantine/hooks';
 import {
+  IconBellRinging,
+  IconUser,
+
+  IconHome2,
+
+  IconReceipt2,
+  IconWallet,
   IconNotification,
-  IconCode,
-  IconBook,
-  IconChartPie3,
-  IconFingerprint,
-  IconCoin,
-  IconChevronDown,
 } from '@tabler/icons-react';
 import { ColorSchemeToggle } from './../ColorSchemeToggle/ColorSchemeToggle';
 import { GiWaveCrest } from 'react-icons/gi';
+import { useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
+ 
+
+  linkActive: {
+    '&, &:hover': {
+      backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
+      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+      [`& .${getStylesRef('icon')}`]: {
+        color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+      },
+    },
+  },
+
   link: {
     display: 'flex',
     alignItems: 'center',
@@ -90,76 +110,116 @@ const useStyles = createStyles((theme) => ({
       display: 'none',
     },
   },
+
+  betaTag: {
+    alignItems: 'center',
+  },
+
+  linkIcon: {
+    ref: getStylesRef('icon'),
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+    marginRight: theme.spacing.sm,
+  },
+
+  
 }));
 
-const mockdata = [
-  {
-    icon: IconCode,
-    title: 'Open source',
-    description: 'This Pokémon’s cry is very loud and distracting',
-  },
-  {
-    icon: IconCoin,
-    title: 'Free for everyone',
-    description: 'The fluid of Smeargle’s tail secretions changes',
-  },
-  {
-    icon: IconBook,
-    title: 'Documentation',
-    description: 'Yanma is capable of seeing 360 degrees without',
-  },
-  {
-    icon: IconFingerprint,
-    title: 'Security',
-    description: 'The shell’s rounded shape and the grooves on its.',
-  },
-  {
-    icon: IconChartPie3,
-    title: 'Analytics',
-    description: 'This Pokémon uses its flying ability to quickly chase',
-  },
-  {
-    icon: IconNotification,
-    title: 'Notifications',
-    description: 'Combusken battles with the intensely hot flames it spews',
-  },
-];
 
+const PAGES = [
+  { link: '/', label: 'Home', icon: IconHome2 },
+  { link: '/profile', label: 'Profile', icon: IconUser },
+  { link: '/wallet', label: 'Wallet', icon: IconReceipt2 },
+  { link: '/notifications', label: 'Notifications', icon: IconBellRinging },
+ 
+];
 export function MantineHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const { classes, theme } = useStyles();
-
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" color="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
+  const { classes, theme, cx } = useStyles();
+  const [active, setActive] = useState("Home");
+  const links = PAGES.map((item) => (
+    <Link
+      className={cx(classes.link, { [classes.linkActive]: item.label === active })}
+      
+      href={item.link}
+      key={item.label}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(item.label);
+        closeDrawer()
+      }}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>{item.label}</span>
+    </Link>
   ));
 
   return (
     <Box pb={5}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: '100%' }}>
-          <Text fz="lg" fw={1000} inherit variant="gradient" component="span">
-            Waves
-          </Text>
+          <Group>
+        <Title className={classes.betaTag} order={1}  fs="italic" variant="gradient"
+      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>Waves </Title>
+<Badge variant="filled" color="blue" radius="sm" className={classes.betaTag}>BETA</Badge>
+</Group>
+          
+            
 
-          <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}></Group>
+
+          <Group sx={{ height: '100%', display: 'flex', justifyContent: 'center' }} className={classes.hiddenMobile} spacing={22} align="center">
+          <Tooltip label="Home" withArrow  position="bottom" offset={3}>
+          <ActionIcon
+          component={Link}
+          href="/"
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 360  }}
+    >
+      <IconHome2 />
+    </ActionIcon>
+    </Tooltip>
+    <Tooltip label="Profile" withArrow  position="bottom" offset={3}>
+    <ActionIcon
+    component={Link}
+    href="/profile"
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+    >
+      <IconUser />
+    </ActionIcon>
+    </Tooltip>
+    <Tooltip label="Wallet" withArrow  position="bottom" offset={3}>
+    <ActionIcon
+    component={Link}
+    href="/wallet"
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 150  }}
+    >
+      <IconWallet />
+    </ActionIcon>
+    </Tooltip>
+    <Tooltip label="Notifications" withArrow  position="bottom" offset={3}>
+    <ActionIcon
+    component={Link}
+    href="/notifications"
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+    >
+      <IconBellRinging/>
+    </ActionIcon>
+    </Tooltip>
+           </Group>
 
           <Group className={classes.hiddenMobile}>
-            <ColorSchemeToggle />
+         
             <Button variant="default">Log in</Button>
             <Button
               leftIcon={<GiWaveCrest size="1rem" />}
@@ -172,24 +232,83 @@ export function MantineHeader() {
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
         </Group>
+        
       </Header>
 
       <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
-        size="100%"
+        size="77%"
         padding="md"
         title={
-          <Text fz="lg" fw={1000} inherit variant="gradient" component="span">
-            Waves
-          </Text>
+          <Title order={2} align="center"  fs="italic" variant="gradient"
+      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>Waves</Title>
         }
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
-
+          <Group p="md">
+<ColorSchemeToggle/>
+</Group>
+          <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
+          <Link href="/" className={classes.link} onClick={closeDrawer}> 
+            <ActionIcon
+   
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+    >
+      <IconHome2/>
+    </ActionIcon>
+    <Space w='md'/>
+              Home
+            </Link>
+            <Space h='md'/>
+            <Link href="/profile" className={classes.link} onClick={closeDrawer}> 
+            <ActionIcon
+   
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+    >
+      <IconUser/>
+    </ActionIcon>
+    <Space w='md'/>
+              Profile
+            </Link>
+            <Space h='md'/>
+            <Link href="/wallet" className={classes.link} onClick={closeDrawer}> 
+            <ActionIcon
+   
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+    >
+      <IconWallet/>
+    </ActionIcon>
+    <Space w='md'/>
+              Wallet
+            </Link>
+            <Space h='md'/>
+            <Link href="/notifications" className={classes.link} onClick={closeDrawer}> 
+            <ActionIcon
+   
+      variant="gradient"
+      size="xl"
+      aria-label="Gradient action icon"
+      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+    >
+      <IconBellRinging/>
+    </ActionIcon>
+    <Space w='md'/>
+              Notifications
+            </Link>
+            <Space h='md'/>
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
           <Group position="center" grow pb="xl" px="md">

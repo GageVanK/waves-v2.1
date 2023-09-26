@@ -9,13 +9,16 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  Group,
 } from '@mantine/core';
 import { MantineNavBar } from './MantineNavBar';
 import { MantineHeader } from './MantineHeader';
 import { ReactNode } from 'react';
+import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+
 export const MantineAppShell = ({ children }: { children: ReactNode }) => {
   const theme = useMantineTheme();
-
+ 
   return (
     <AppShell
       styles={{
@@ -29,7 +32,9 @@ export const MantineAppShell = ({ children }: { children: ReactNode }) => {
       aside={
         <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
           <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-            <Text>Application sidebar</Text>
+            <Group position="left">
+          <ColorSchemeToggle />
+          </Group>
           </Aside>
         </MediaQuery>
       }

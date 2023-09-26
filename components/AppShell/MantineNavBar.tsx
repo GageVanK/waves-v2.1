@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
-import {
-  IconBellRinging,
-  IconUser,
-  IconKey,
-  IconSettings,
-  IconHome2,
-  IconDeviceDesktopAnalytics,
-  IconReceipt2,
-} from '@tabler/icons-react';
+
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -65,37 +57,16 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const data = [
-  { link: '', label: 'Home', icon: IconHome2 },
-  { link: '', label: 'Discover', icon: IconDeviceDesktopAnalytics },
-  { link: '', label: 'Profile', icon: IconUser },
-  { link: '', label: 'Wallet', icon: IconReceipt2 },
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Settings', icon: IconSettings },
-];
+
 
 export function MantineNavBar() {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState('Billing');
+ 
   const [opened] = useState(false);
-  const links = data.map((item) => (
-    <a
-      className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </a>
-  ));
+  
 
   return (
     <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-      <Navbar.Section grow>{links}</Navbar.Section>
+     
     </Navbar>
   );
 }
