@@ -164,9 +164,6 @@ export function Welcome() {
 
 <SimpleGrid
   mt={60}
- 
-  spacing={{ base: 'xl', md: 50 }}
-  verticalSpacing={{ base: 'xl', md: 50 }}
   className={classes.root}
 >
   <Slide>
