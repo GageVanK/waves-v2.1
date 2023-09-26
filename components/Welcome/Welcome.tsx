@@ -125,9 +125,10 @@ export function Feature({ icon, title, description }: { icon: ReactElement, titl
     <>
     <div >
       <Center>
-      <ThemeIcon variant="light" size={50} radius={40}>
-         {React.cloneElement(icon, { style: { ...iconStyles, width: rem(25), height: rem(25) } })}
-      </ThemeIcon>
+   <ThemeIcon variant="light" size={50} radius={40}>
+  {cloneElement(icon, { style: { ...iconStyles, width: rem(25), height: rem(25) } })}
+</ThemeIcon>
+
       </Center>
       <Center>
       <Text fw={500} mt="sm" mb={7}>
