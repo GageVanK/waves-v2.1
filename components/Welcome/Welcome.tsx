@@ -113,13 +113,20 @@ export const MOCKDATA = [
   },
 ];
 
+interface FeatureProps {
+  icon: ReactElement;
+  title: string;
+  description: string;
+  iconStyles?: CSSProperties; // Define a prop for custom icon styles
+}
+
 export function Feature({ icon, title, description }: { icon: ReactElement, title: string, description: string }) {
   return (
     <>
     <div >
       <Center>
       <ThemeIcon variant="light" size={50} radius={40}>
-        <Icon style={{ width: rem(25), height: rem(25) }} stroke={1.5} />
+         {React.cloneElement(icon, { style: { ...iconStyles, width: rem(25), height: rem(25) } })}
       </ThemeIcon>
       </Center>
       <Center>
