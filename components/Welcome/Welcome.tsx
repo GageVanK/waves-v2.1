@@ -24,7 +24,7 @@ import { RiDatabaseLine } from "react-icons/ri";
 import { GiReceiveMoney } from "react-icons/gi";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { PiUsersThreeDuotone } from "react-icons/pi";
-
+import { ReactElement } from 'react';
 
 
 import { GiBigWave } from 'react-icons/gi';
@@ -113,7 +113,7 @@ export const MOCKDATA = [
   },
 ];
 
-export function Feature({ icon: Icon, title, description }) {
+export function Feature({ icon, title, description }: { icon: ReactElement, title: string, description: string }) {
   return (
     <>
     <div >
